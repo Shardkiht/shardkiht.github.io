@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shardkiht | Java 后端开发</title>
+    <meta name="description" content="Shardkiht，2027 届数据科学与大数据技术本科，Java 后端开发实习生。记录后端开发、业务排查、FlashDeal、RentDetective 与 quiet-memo 项目实践。">
+    <style>
+        :root {
+            --bg: #f7f6f4;
+            --card: #ffffff;
+            --text: #2c3e50;
+            --text-secondary: #5d6d7e;
+            --accent: #6b7c93;
+            --accent-light: #8a9bb0;
+            --border: #e8e4df;
+            --shadow: rgba(44, 62, 80, 0.06);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        a:hover {
+            color: var(--text);
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        header {
+            padding: 64px 0 40px;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .tagline {
+            color: var(--text-secondary);
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .contact-bar {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .contact-bar a {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .contact-bar svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
+        section {
+            margin-bottom: 48px;
+        }
+
+        .section-title {
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 20px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 28px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 12px var(--shadow);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px var(--shadow);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .card-meta {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 12px 0;
+        }
+
+        .tag {
+            font-size: 12px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            background: var(--bg);
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+        }
+
+        .card-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .card li {
+            font-size: 14px;
+            color: var(--text-secondary);
+            padding: 6px 0;
+            padding-left: 16px;
+            position: relative;
+        }
+
+        .card li::before {
+            content: "—";
+            position: absolute;
+            left: 0;
+            color: var(--accent-light);
+        }
+
+        .highlight {
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .source-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 13px;
+            margin-top: 8px;
+        }
+
+        /* About section - split cards */
+        .about-grid {
+            display: grid;
+            gap: 16px;
+        }
+
+        .about-card {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 24px 28px;
+            box-shadow: 0 2px 12px var(--shadow);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .about-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px var(--shadow);
+        }
+
+        .about-card h3 {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .about-card h3 .icon {
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        .about-card p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .about-card p + p {
+            margin-top: 10px;
+        }
+
+        .skill-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .skill-item {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .skill-item strong {
+            color: var(--text);
+            font-weight: 600;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .env-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .env-item {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .env-item strong {
+            color: var(--text);
+            font-weight: 600;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .edu-item {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .edu-item strong {
+            color: var(--text);
+        }
+
+        footer {
+            padding: 40px 0 60px;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 600px) {
+            .skill-grid, .env-grid { grid-template-columns: 1fr; }
+            header {
+                padding: 48px 0 32px;
+            }
+            h1 {
+                font-size: 26px;
+            }
+            .card, .about-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Shardkiht</h1>
+            <p class="tagline">Java 后端开发实习生 · 2027 届本科</p>
+            <div class="contact-bar">
+                <a href="https://github.com/Shardkiht" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0012 2z"/></svg>
+                    GitHub
+                </a>
+            </div>
+        </header>
+
+        <section>
+            <div class="section-title">关于我</div>
+            <div class="about-grid">
+                <div class="about-card">
+                    <h3>从大数据到后端</h3>
+                    <p>数据科学与大数据技术专业本科，大四，2027 届。目前在一家 to B / to G 软件公司担任 <strong>Java 后端开发实习生</strong>，参与业务问题排查、代码修复与测试环境部署。</p>
+                    <p>喜欢从零搭建系统，也喜欢沿着前端、接口、服务和数据库定位问题。个人项目主要围绕高并发下单、数据一致性和租房风险识别展开，长期关注后端架构与部署运维。</p>
+                </div>
+                <div class="about-card">
+                    <h3>项目与学习</h3>
+                    <p>习惯结合具体业务理解原理：从订单重试研究幂等，从库存预扣研究一致性，从工具调用和对照评测理解 Agent。把源码、问题复现、修复过程和验证结果串起来，比单独记住概念更有用。</p>
+                </div>
+                <div class="about-card">
+                    <h3>工具与 AI 协作</h3>
+                    <p>日常使用 IntelliJ IDEA，借助 AI 讨论方案、阅读代码和辅助排错，再通过源码、日志与数据核对结论。会主动体验 Agent 和数据库客户端的界面、配置及工作流，也重视工具的稳定性与持续维护。</p>
+                    <p>当前个人电脑使用 Windows 11；有 Fedora Linux 与 Podman 部署中间件的实践经历。喜欢自己装机、搭环境和解决实际使用中的问题。</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="section-title">实习经历</div>
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">某软件公司（to B / to G 业务方向）</span>
+                    <span class="card-meta">2026.08 – 至今 · Java 后端开发实习生</span>
+                </div>
+                <div class="card-tags">
+                    <span class="tag">Java</span><span class="tag">Spring</span>
+                    <span class="tag">MySQL / 达梦</span><span class="tag">Nacos</span>
+                    <span class="tag">问题排查</span>
+                </div>
+                <p class="card-desc">参与 to B / to G 业务系统维护，接触省、市多库部署场景，从用户反馈和测试问题中定位原因、修复代码并验证结果。</p>
+                <ul>
+                    <li><span class="highlight">全链路排查</span>：结合前端表现、接口调用、服务代码与数据库数据定位业务问题，涉及前端时与相关开发协作</li>
+                    <li><span class="highlight">业务与数据核对</span>：参与统计口径差异、学习时长不一致及同步、接口异常等问题排查与数据修复</li>
+                    <li><span class="highlight">修复与发布</span>：处理测试反馈，修改代码、合并分支，手动部署测试环境并验证修复结果</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <div class="section-title">项目经历</div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">quiet-memo · 本地优先的个人记忆 Agent</span>
+                    <span class="card-meta">2026.10 · 个人实践</span>
+                </div>
+                <div class="card-tags">
+                    <span class="tag">Python 3.12</span>
+                    <span class="tag">Typer / TUI</span>
+                    <span class="tag">FastMCP</span>
+                    <span class="tag">LiteLLM</span>
+                    <span class="tag">BM25 + 向量混合检索</span>
+                    <span class="tag">fastembed</span>
+                    <span class="tag">pytest</span>
+                </div>
+                <p class="card-desc">
+                    从日常对话中抽取本人事实，默认静默写入本地 Markdown；低置信、冲突、敏感内容进入待确认队列，Git 全程审计可回滚。完整 Agent（会话持久化、上下文压缩、工具循环），CLI / TUI / MCP 三种入口。
+                </p>
+                <ul>
+                    <li><span class="highlight">混合检索</span>：BM25 与本地 bge-small-zh 向量 RRF 融合，npz 按条目增量缓存；自建可复现评测（456 条合成语料 / 27 例，无个人数据），向量单路 Recall@3 89%</li>
+                    <li><span class="highlight">评测驱动修复</span>：量化对比发现结果错位，逐层排查定位到批量导入的 16 位条目 ID 生日碰撞导致向量矩阵错行；修复后真实库（脱敏，仅汇总指标）MRR@10 0.569 → 0.745，成为三路最佳</li>
+                    <li><span class="highlight">写入裁决全在程序</span>：密钥拦截、数值/否定/相似度冲突检测、置信度阈值、supersedes 更正链；LLM 只做受契约约束的整理，校验失败带错误回传重出，无直接写盘权限</li>
+                    <li><span class="highlight">AI 导入</span>：外部 Markdown 由 LLM 按严格 JSON 契约整理成原子条目（最多 3 轮格式重试），再走同一裁决管线落盘</li>
+                </ul>
+                <p class="card-desc">评测方法与已知弱点见仓库 evals/ 目录；记忆数据与个人信息均不入库。</p>
+                <a class="source-link" href="https://github.com/Shardkiht/quiet-memo" target="_blank" rel="noopener noreferrer">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0012 2z"/></svg>
+                    查看源码
+                </a>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">RentDetective · 租房风险侦查 Agent</span>
+                    <span class="card-meta">2026.07 起 · 个人实践</span>
+                </div>
+                <div class="card-tags">
+                    <span class="tag">Java 17</span>
+                    <span class="tag">Spring Boot 3</span>
+                    <span class="tag">MySQL</span>
+                    <span class="tag">向量检索</span>
+                    <span class="tag">硅基流动</span>
+                    <span class="tag">RAG</span>
+                    <span class="tag">ReAct</span>
+                </div>
+                <p class="card-desc">
+                    面向租房场景的风险识别系统：基于 104 条房源的 AI 预标注与人工复核，归纳文本和关系规则，手写 ReAct 循环结合 RAG 案例检索，输出带证据来源的调查报告。
+                </p>
+                <ul>
+                    <li><span class="highlight">手写 ReAct 循环</span>：最多 8 轮、4 个工具；工具调用用 CompletableFuture 控制超时，超时返回失败结果供后续处理</li>
+                    <li><span class="highlight">RAG 案例检索</span>：云端 bge-large-zh-v1.5 嵌入，MySQL JSON 存储向量、应用层计算相似度；同联系方式房源整体切分，避免案例库与评测集泄漏</li>
+                    <li><span class="highlight">规则引擎</span>：17 条文本规则（16 启用、1 中性/禁用）与 2 条关系规则，结合联系方式聚类与价格核对；提供 Prompt Injection 检测工具</li>
+                    <li><span class="highlight">三方案对照评测</span>：在同一 24 条评测集上，规则 83.3%、Agent+RAG 79.2%、纯 LLM 37.5%；修复价格工具、Prompt 与评测口径后，Agent 从 45.8% 提升至 79.2%</li>
+                </ul>
+                <p class="card-desc">评测集样本量较小，结果仅代表当前数据集；跨平台泛化尚未验证。</p>
+                <a class="source-link" href="https://github.com/Shardkiht/rent-detective" target="_blank" rel="noopener noreferrer">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0012 2z"/></svg>
+                    查看源码
+                </a>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">FlashDeal · AI 风控高并发秒杀系统</span>
+                    <span class="card-meta">2026.04 – 2026.07 · 个人实践</span>
+                </div>
+                <div class="card-tags">
+                    <span class="tag">Java 17</span>
+                    <span class="tag">Spring Boot</span>
+                    <span class="tag">Redis</span>
+                    <span class="tag">Redisson</span>
+                    <span class="tag">RocketMQ</span>
+                    <span class="tag">Smile</span>
+                    <span class="tag">Podman</span>
+                </div>
+                <p class="card-desc">
+                    秒杀全链路独立设计与容器化部署：限流、风控、原子扣减、异步下单一整套，主要解决削峰、恶意流量识别、库存一致性和异步解耦这四件事。
+                </p>
+                <ul>
+                    <li><span class="highlight">Redisson 全局限流 3000 req/s</span>，压测前置拦截 <span class="highlight">89.29%</span> 冗余请求</li>
+                    <li><span class="highlight">Redis + Lua 原子脚本</span> 实现库存扣减与一人一单判重，库存预扣与判重在同一脚本中完成</li>
+                    <li><span class="highlight">RocketMQ 异步架构</span> + 三态幂等键 + rollback.lua 原子回滚 + 定时对账兜底</li>
+                    <li><span class="highlight">AI 风控决策树</span>（Smile 进程内推理），对模拟行为特征进行判定，该次压测风控拦截占比 <span class="highlight">10.19%</span></li>
+                    <li>压测：5000 测试用户 / 100 连接 / 4 线程 / 30s，共 <span class="highlight">844,121 请求</span>，入口 QPS <span class="highlight">28,055</span>，p50 1.95ms / p99 18.48ms；100 库存对应 100 订单，零超卖、零重复</li>
+                </ul>
+                <p class="card-desc">入口吞吐包含限流、风控等拒绝请求，不等同于订单落库吞吐；数据来自仓库中的该次压测记录。</p>
+                <a class="source-link" href="https://github.com/Shardkiht/flash-deal" target="_blank" rel="noopener noreferrer">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0012 2z"/></svg>
+                    查看源码
+                </a>
+            </div>
+
+        </section>
+
+        <section>
+            <div class="section-title">开发环境</div>
+            <div class="card env-grid">
+                <div class="env-item">
+                    <strong>操作系统</strong>
+                    Windows 11；曾使用 Fedora Linux，计划通过 WSL 补充 Linux 开发环境
+                </div>
+                <div class="env-item">
+                    <strong>容器化</strong>
+                    使用 Podman 部署过 Redis、RocketMQ、MySQL，关注数据与配置持久化
+                </div>
+                <div class="env-item">
+                    <strong>编辑器</strong>
+                    IntelliJ IDEA / VS Code
+                </div>
+                <div class="env-item">
+                    <strong>硬件</strong>
+                    自组 ITX 主机，AMD Ryzen 7 7700 / RTX 4070 SUPER / 16GB RAM
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="section-title">专业技能</div>
+            <div class="card skill-grid">
+                <div class="skill-item">
+                    <strong>Java</strong>
+                    面向对象、集合框架、ThreadLocal、volatile、CAS、线程池、JUC、JVM 内存结构与 GC 基础
+                </div>
+                <div class="skill-item">
+                    <strong>主流框架</strong>
+                    Spring IoC/DI、AOP、声明式事务、Spring Cache、Spring Boot、MyBatis Plus
+                </div>
+                <div class="skill-item">
+                    <strong>数据库</strong>
+                    MySQL B+树索引、事务隔离、锁机制、SQL 调优
+                </div>
+                <div class="skill-item">
+                    <strong>缓存</strong>
+                    Redis Lua 原子操作、Redisson 分布式锁与限流、缓存一致性、AOF/RDB、穿透/击穿/雪崩防护
+                </div>
+                <div class="skill-item">
+                    <strong>消息队列</strong>
+                    RocketMQ 异步架构、失败回调补偿、幂等消费、死信队列
+                </div>
+                <div class="skill-item">
+                    <strong>工程能力</strong>
+                    Maven、Git、Linux 与 Podman 实践、RESTful、幂等设计、测试环境部署与问题排查
+                </div>
+                <div class="skill-item">
+                    <strong>AI 工程化</strong>
+                    Smile 决策树进程内推理、特征工程、向量检索、Prompt 迭代与评测
+                </div>
+                <div class="skill-item">
+                    <strong>Agent 开发</strong>
+                    手写 ReAct 循环、工具超时熔断、RAG、规则引擎、Prompt Injection 防护、对照评测
+                </div>
+                <div class="skill-item">
+                    <strong>AI 协作</strong>
+                    辅助方案讨论、代码阅读与排错；结合源码、日志和验证结果审查生成内容
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="section-title">教育经历</div>
+            <div class="card">
+                <div class="edu-item">
+                    <strong>本科 · 数据科学与大数据技术</strong> · 2027 届毕业<br>
+                    大四 · CET-6 · 目前在岗实习
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>更新于 2026-10-24</p>
+            <p>© 2026 Shardkiht · github.com/Shardkiht</p>
+        </footer>
+    </div>
+</body>
+</html>
