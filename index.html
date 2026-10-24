@@ -341,11 +341,14 @@
                     <span class="tag">MySQL / 达梦</span><span class="tag">Nacos</span>
                     <span class="tag">问题排查</span>
                 </div>
-                <p class="card-desc">参与 to B / to G 业务系统维护，接触省、市多库部署场景，从用户反馈和测试问题中定位原因、修复代码并验证结果。</p>
+                <p class="card-desc">参与政务领域教育学习平台维护（省、市多库部署），从用户反馈和测试问题中定位原因、修复代码并验证结果。</p>
                 <ul>
-                    <li><span class="highlight">全链路排查</span>：结合前端表现、接口调用、服务代码与数据库数据定位业务问题，涉及前端时与相关开发协作</li>
-                    <li><span class="highlight">业务与数据核对</span>：参与统计口径差异、学习时长不一致及同步、接口异常等问题排查与数据修复</li>
-                    <li><span class="highlight">修复与发布</span>：处理测试反馈，修改代码、合并分支，手动部署测试环境并验证修复结果</li>
+                    <li><span class="highlight">全链路排查</span>：从前端表现、接口、服务源码、数据库到 Redis 缓存与服务器逐层定位，覆盖统计不一致、定时任务积压、页面异常等生产问题</li>
+                    <li><span class="highlight">双库与方言</span>：MySQL / 达梦多库下的统计口径对账、SQL 方言兼容、配置漂移与历史数据错位排查</li>
+                    <li><span class="highlight">安全整改闭环</span>：实测定位 SQL 注入根因在公共组件条件拼接，核查部署产物发现"主包新、依赖旧"，修正打包方式后安全侧复测通过</li>
+                    <li><span class="highlight">数据治理</span>：部门链路字段全库巡检、重复部门关系清理、历史脏数据定位与受控修复</li>
+                    <li><span class="highlight">修复与发布</span>：修改代码、合并分支、Maven 聚合构建与测试环境部署，处理发布进程与部署配置类问题</li>
+                    <li><span class="highlight">工具沉淀</span>：编写只读探针脚本与双库 SQL 模板库，把重复排查路径固化成可复用工具</li>
                 </ul>
             </div>
         </section>
